@@ -2,6 +2,7 @@
 
 var path = require('path');
 var HappyPack = require('happypack');
+var webpack = require('webpack');
 var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -30,7 +31,7 @@ module.exports = {
   plugins: [
     new HappyPack({
       id: 'ts',
-      threads: 1,
+      threads: 2,
       loaders: [
         {
           path: 'ts-loader',
@@ -38,10 +39,15 @@ module.exports = {
         }
       ]
     }),
+    new webpack.HotModuleReplacementPlugin(),
     new CopyWebpackPlugin(
       [
         { from: 'index.html', to: root('dist') },
       ]),
-    new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true }),
+    new ForkTsCheckerWebpackPlugin({
+      checkSyntacticErrors: true,
+      workers: 2,
+      memoryLimit: 4096,
+    }),
   ]
 };

@@ -12,6 +12,7 @@
     "update-1": "node generate.js 1",
     "start": "webpack --watch",
     "dev": "webpack-dev-server",
+    "dev-hot": "webpack-dev-server --hot",
     "clean": "rimraf ./src && rimraf ./dist"
   },
   "devDependencies": {
