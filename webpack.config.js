@@ -45,6 +45,9 @@ module.exports = {
         { from: 'index.html', to: root('dist') },
       ]),
     new ForkTsCheckerWebpackPlugin({
+      // Wait for type-check results before serving
+      // so that typescript errors appear in the app
+      async: false,
       checkSyntacticErrors: true,
       workers: 2,
       memoryLimit: 4096,
