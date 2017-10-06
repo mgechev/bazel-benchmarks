@@ -19,6 +19,7 @@
     "copy-webpack-plugin": "^4.1.1",
     "fork-ts-checker-webpack-plugin": "^0.2.8",
     "happypack": "^4.0.0",
+    "mkdirp": "^0.5.1",
     "rimraf": "^2.6.2",
     "ts-loader": "^2.3.7",
     "typescript": "^2.5.3",

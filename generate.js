@@ -1,4 +1,5 @@
 const fs = require('fs');
+const mkdir = require('mkdirp');
 const now = new Date();
 
 const numFiles = parseInt(process.argv[2]);
@@ -7,11 +8,21 @@ if (!numFiles) {
 }
 
 const generateIndex = process.argv[3];
+const packages = numFiles / 10;
 
 console.log(`Generating ${numFiles} source files...`);
 for (i = 0; i < numFiles; i++) {
-  const content = `export class Timer${i} { static createdAt() { return new Date('${now.toISOString()}'); } }`;
-  path = `src/timer${i}.ts`;
+  const content = `/** some copyright header */
+export class Timer${i} {
+  static createdAt() {
+    return new Date('${now.toISOString()}');
+  }
+}
+`;
+
+  const dir = `src/package${i % packages}`;
+  const path = `${dir}/timer${i}.ts`;
+  mkdir.sync(dir);
   fs.writeFileSync(path, content, {encoding: 'utf-8'});
 }
 
@@ -19,7 +30,7 @@ if (generateIndex) {
   console.log('Generating index.ts...');
   let index = ``;
   for (i = 0; i < numFiles; i++) {
-    index += `import { Timer${i} } from './timer${i}';\n`;
+    index += `import { Timer${i} } from './package${i % packages}/timer${i}';\n`;
   }
   index += `let updatedAt: Date = Timer0.createdAt();\n`
   for (i = 1; i < numFiles; i++) {
