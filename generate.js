@@ -37,11 +37,13 @@ if (generateIndex) {
     index += `updatedAt = Timer${i}.createdAt() > updatedAt ? Timer${i}.createdAt() : updatedAt;\n`;
   }
   index += `
-    console.log("Num files", ${numFiles});
+    document.body.appendChild(document.createTextNode('Num files ${numFiles}'));
+    document.body.appendChild(document.createElement("br"));
     console.log("Updated at", updatedAt.toISOString());
     const now = new Date();
     console.log("Now", now.toISOString());
-    console.log("RTT (ms)", now.getTime() - updatedAt.getTime());
+
+    document.body.appendChild(document.createTextNode(\`RTT (ms) $\{now.getTime() - updatedAt.getTime()}\`));
   `;
   fs.writeFileSync('src/index.ts', index, {encoding: 'utf-8'});
 }
