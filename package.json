@@ -7,6 +7,7 @@
     "generate-1000": "rimraf ./src && mkdir ./src && node generate.js 1000 true",
     "generate-2000": "rimraf ./src && mkdir ./src && node generate.js 2000 true",
     "generate-4000": "rimraf ./src && mkdir ./src && node generate.js 4000 true",
+    "generate-6500": "rimraf ./src && mkdir ./src && node generate.js 6500 true",
     "generate-8000": "rimraf ./src && mkdir ./src && node generate.js 8000 true",
     "generate-10000": "rimraf ./src && mkdir ./src && node generate.js 10000 true",
     "update-1": "node generate.js 1",

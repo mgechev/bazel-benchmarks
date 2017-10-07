@@ -13,7 +13,8 @@ function root(sub) {
 module.exports = {
   context: __dirname, // to automatically find tsconfig.json
   target: 'web',
-  devtool: 'cheap-eval-source-map',
+  // For useful debugging, make sure source maps point to original TS content
+  devtool: 'cheap-module-eval-source-map',
   entry: './src/index.ts',
   output: { path: root('dist'), pathinfo: true, filename: 'index.js' },
   module: {
