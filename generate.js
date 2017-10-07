@@ -12,6 +12,10 @@ const packages = numFiles / 10;
 
 console.log(`Generating ${numFiles} source files...`);
 for (i = 0; i < numFiles; i++) {
+  const dir = `src/package${i % packages}`;
+  const path = `${dir}/timer${i}.ts`;
+  mkdir.sync(dir);
+
   const content = `/** some copyright header */
 export class Timer${i} {
   static createdAt() {
@@ -20,9 +24,6 @@ export class Timer${i} {
 }
 `;
 
-  const dir = `src/package${i % packages}`;
-  const path = `${dir}/timer${i}.ts`;
-  mkdir.sync(dir);
   fs.writeFileSync(path, content, {encoding: 'utf-8'});
 }
 
