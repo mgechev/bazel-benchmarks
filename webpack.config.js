@@ -16,7 +16,7 @@ module.exports = {
   // For useful debugging, make sure source maps point to original TS content
   devtool: 'cheap-module-eval-source-map',
   entry: './src/index.ts',
-  output: { path: root('dist'), pathinfo: true, filename: 'index.js' },
+  output: { path: root('dist'), pathinfo: true, filename: 'bundle.js' },
   module: {
     rules: [
       {

@@ -4,6 +4,7 @@
   "author": "Greg Magolan",
   "version": "0.0.1",
   "scripts": {
+    "generate-10": "rimraf ./src && mkdir ./src && node generate.js 10 true",
     "generate-1000": "rimraf ./src && mkdir ./src && node generate.js 1000 true",
     "generate-2000": "rimraf ./src && mkdir ./src && node generate.js 2000 true",
     "generate-4000": "rimraf ./src && mkdir ./src && node generate.js 4000 true",
@@ -11,19 +12,21 @@
     "generate-8000": "rimraf ./src && mkdir ./src && node generate.js 8000 true",
     "generate-10000": "rimraf ./src && mkdir ./src && node generate.js 10000 true",
     "update-1": "node generate.js 1",
-    "start": "webpack --watch",
-    "dev": "webpack-dev-server",
-    "dev-hot": "webpack-dev-server --hot",
+    "bazel": "ibazel run :devserver",
+    "webpack": "webpack-dev-server",
+    "webpack-hot": "webpack-dev-server --hot",
     "clean": "rimraf ./src && rimraf ./dist"
   },
   "devDependencies": {
+    "@bazel/typescript": "git+https://github.com/gregmagolan/rules_typescript.git#devserver-11",
     "copy-webpack-plugin": "^4.1.1",
     "fork-ts-checker-webpack-plugin": "^0.2.8",
     "happypack": "^4.0.0",
+    "express": "^4.16.1",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.2",
     "ts-loader": "^2.3.7",
-    "typescript": "^2.5.3",
+    "typescript": "2.5.3",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.9.1"
   }

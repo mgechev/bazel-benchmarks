@@ -1,5 +1,12 @@
 {
     "compilerOptions": {
         "sourceMap": true
-    }
+    },
+    "exclude": [
+      "bazel-bin",
+      "bazel-genfiles",
+      "bazel-out",
+      "bazel-testlogs",
+      "bazel-webpack-typescript-benchmarking"
+    ]
 }
