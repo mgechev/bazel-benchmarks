@@ -1,35 +1,37 @@
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
-git_repository(
-    name = "build_bazel_rules_nodejs",
-    remote = "https://github.com/bazelbuild/rules_nodejs.git",
-    tag = "0.3.0",
-)
-
-load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories")
-
-node_repositories(package_json = ["//:package.json"])
-
-# Include @bazel/typescript in package.json#devDependencies
-local_repository(
-    name = "build_bazel_rules_typescript",
-    path = "node_modules/@bazel/typescript",
-)
-
-load("@build_bazel_rules_typescript//:defs.bzl", "ts_repositories")
-
-ts_repositories()
-
-local_repository(
-    name = "rxjs",
-    path = "node_modules/rxjs/src",
-)
-
 http_archive(
-    name = "io_bazel_rules_go",
-    url = "https://github.com/bazelbuild/rules_go/releases/download/0.7.0/rules_go-0.7.0.tar.gz",
-    sha256 = "91fca9cf860a1476abdc185a5f675b641b60d3acf0596679a27b580af60bf19c",
+    name = "build_bazel_rules_typescript",
+    url = "https://github.com/bazelbuild/rules_typescript/archive/0.21.0.zip",
+    strip_prefix = "rules_typescript-0.21.0",
 )
+
+# Fetch our Bazel dependencies that aren't distributed on npm
+load("@build_bazel_rules_typescript//:package.bzl", "rules_typescript_dependencies")
+rules_typescript_dependencies()
+
+# Setup TypeScript toolchain
+load("@build_bazel_rules_typescript//:defs.bzl", "ts_setup_workspace")
+ts_setup_workspace()
+
+# Setup the NodeJS toolchain
+load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories", "yarn_install")
+node_repositories()
+
+# Setup Bazel managed npm dependencies with the `yarn_install` rule.
+yarn_install(
+  name = "npm",
+  package_json = "//:package.json",
+  yarn_lock = "//:yarn.lock",
+)
+
+# Setup Go toolchain
 load("@io_bazel_rules_go//go:def.bzl", "go_rules_dependencies", "go_register_toolchains")
 go_rules_dependencies()
 go_register_toolchains()
+
+# Setup web testing, choose browsers we can test on
+load("@io_bazel_rules_webtesting//web:repositories.bzl", "browser_repositories", "web_test_repositories")
+
+web_test_repositories()
+browser_repositories(
+    chromium = True,
+)

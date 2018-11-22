@@ -1,7 +1,6 @@
 'use strict';
 
 var path = require('path');
-var HappyPack = require('happypack');
 var webpack = require('webpack');
 var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -13,33 +12,27 @@ function root(sub) {
 module.exports = {
   context: __dirname, // to automatically find tsconfig.json
   target: 'web',
+  mode: 'production',
   // For useful debugging, make sure source maps point to original TS content
   devtool: 'cheap-module-eval-source-map',
   entry: './src/index.ts',
   output: { path: root('dist'), pathinfo: true, filename: 'bundle.js' },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        loader: 'happypack/loader?id=ts'
-      }
-    ]
-  },
   resolve: {
     extensions: ['.ts', '.js']
   },
-  plugins: [
-    new HappyPack({
-      id: 'ts',
-      threads: 2,
-      loaders: [
-        {
-          path: 'ts-loader',
-          query: { happyPackMode: true }
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: {
+          // disable type checker - we will use it in fork plugin
+          transpileOnly: true
         }
-      ]
-    }),
+      }
+    ]
+  },
+  plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new CopyWebpackPlugin(
       [

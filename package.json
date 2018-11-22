@@ -18,16 +18,18 @@
     "clean": "rimraf ./src && rimraf ./dist"
   },
   "devDependencies": {
-    "@bazel/typescript": "git+https://github.com/gregmagolan/rules_typescript.git#devserver-11",
-    "copy-webpack-plugin": "^4.1.1",
-    "fork-ts-checker-webpack-plugin": "^0.2.8",
-    "happypack": "^4.0.0",
+    "@bazel/bazel": "0.19.1",
+    "@bazel/typescript": "0.21.0",
+    "copy-webpack-plugin": "^4.6.0",
     "express": "^4.16.1",
+    "fork-ts-checker-webpack-plugin": "^0.5.0",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.2",
-    "ts-loader": "^2.3.7",
-    "typescript": "2.5.3",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1"
+    "ts-loader": "^4.3.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6",
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
   }
 }

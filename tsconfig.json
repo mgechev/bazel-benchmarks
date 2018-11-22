@@ -1,12 +1,14 @@
 {
     "compilerOptions": {
-        "sourceMap": true
+        "sourceMap": true,
+        "lib": ["es2015", "dom"]
     },
     "exclude": [
       "bazel-bin",
       "bazel-genfiles",
       "bazel-out",
       "bazel-testlogs",
+      "bazel-bazel-benchmarking",
       "bazel-webpack-typescript-benchmarking"
     ]
 }
