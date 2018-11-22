@@ -10,3 +10,8 @@ This should prompt an incremental build and redeploy to browser. Console log in 
 ## Comparing with prototype Bazel devserver
 
 See the `bazel` branch in this repo.
+
+## License
+
+MIT
+
